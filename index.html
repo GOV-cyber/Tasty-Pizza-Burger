@@ -102,8 +102,7 @@ header{
 .tabs .pill.active{box-shadow:var(--ring);border-color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-.card .img{aspect-ratio:1/1;background:#0e0e11 url('./img/pizza.jpg') center/cover no-repeat;content-visibility:auto;contain-intrinsic-size:300px 300px}
-html[data-theme="mcd"] .card .img{background:#f5f5f5 url('./img/pizza.jpg') center/cover no-repeat}
+.card .img{aspect-ratio:1/1;background:#f5f5f5 url('./img/pizza.jpg') center/cover no-repeat;content-visibility:auto;contain-intrinsic-size:300px 300px}
 .card .body{padding:14px 14px 10px}
 .name{font-weight:800}
 .desc{color:var(--muted);font-size:13px;margin:6px 0 10px;min-height:36px}
@@ -121,10 +120,10 @@ select{padding:8px 10px}
 .fab{position:fixed;right:18px;bottom:18px;background:#22c55e;color:#062b14;border:none;border-radius:999px;padding:14px 18px;font-weight:900;cursor:pointer;box-shadow:0 10px 25px rgba(34,197,94,.35);z-index:60}
 .drawer{position:fixed;inset:0;pointer-events:none;z-index:55}
 .drawer.active{pointer-events:auto}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:.2s}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:.2s}
 .drawer.active .overlay{opacity:1}
 .panel{position:absolute;right:-420px;top:0;height:100svh;width:min(92vw,380px);
-  background:var(--card);border-left:1px solid var(--border);transition:.25s;padding:18px;display:flex;flex-direction:column;gap:12px;overflow:auto;-webkit-overflow-scrolling:touch}
+  background:var(--card);border-left:1px solid var(--border);transition:.25s;padding:18px;display:flex;flex-direction:column;gap:12px;overflow:auto;-webkit-overflow-scrolling:touch;box-shadow:-24px 0 40px rgba(0,0,0,.06)}
 .drawer.active .panel{right:0}
 .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;border-bottom:1px dashed var(--border);padding:8px 0}
 .cart-item img{width:64px;height:64px;border-radius:12px;object-fit:cover;background:#0e0e11}
@@ -133,6 +132,10 @@ select{padding:8px 10px}
 .cta{display:flex;flex-direction:column;gap:10px}
 .btn.mail{background:#000;color:#fff;border:1px solid #333}
 .btn.wa{background:#25d366;color:#073b16;border:1px solid #0c4}
+@media (max-width: 640px){
+  .panel{ padding-bottom:92px; }
+  .cta{ position:sticky; bottom:0; background:var(--card); padding:12px; }
+}
 
 /* Modal cadastro */
 .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:16px;z-index:70}
@@ -241,7 +244,7 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
     <span class="badge" data-i18n="bf_badge">BLACK FRIDAY • LIMITED TIME</span>
     <h1 id="bfTitle2"><span class="gold" data-i18n="bf_title_gold">Big Deals</span> <span data-i18n="bf_title_rest">on Pizza & Burgers</span></h1>
     <p class="muted" data-i18n="bf_desc">Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.</p>
-    <p class="muted" id="eta" aria-live="polite">Delivery ~35–45 min • Pickup ~15 min</p>
+    <p class="muted" id="eta" aria-live="polite">Open • Delivery ~35–45 min • Pickup ~15 min</p>
   </section>
 
   <!-- Tabs + catálogo -->
@@ -258,13 +261,26 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
   <aside class="panel" aria-labelledby="cartTitle">
     <h2 id="cartTitle" style="margin:0" data-i18n="your_cart">Your order</h2>
     <div id="cartList"></div>
+
+    <!-- Resumo -->
     <div class="totals">
-      <div class="row-sb">
+      <div class="row-sb"><span>Subtotal</span><strong id="subTotal">£0.00</strong></div>
+      <div class="row-sb"><span>Delivery fee</span><strong id="delFee">£0.00</strong></div>
+      <div class="row-sb"><span>Discount</span><strong id="disc">- £0.00</strong></div>
+      <div class="row-sb" style="border-top:1px solid var(--border);padding-top:8px">
         <strong data-i18n="total">Total</strong>
         <strong id="cartTotal" aria-live="polite">£0.00</strong>
       </div>
       <div class="muted" style="font-size:12px">No online payment • Pay on delivery/pickup</div>
     </div>
+
+    <!-- Cupom -->
+    <div class="row" style="gap:8px">
+      <input id="cupom" placeholder="Coupon (e.g., BLACK10)" style="flex:1">
+      <button class="pill" id="applyCupom" type="button">Apply</button>
+      <button class="pill" id="clearCupom" type="button">Clear</button>
+    </div>
+
     <div class="cta">
       <button class="btn secondary" id="btnCadastro" data-i18n="open_signup" type="button">Customer details</button>
       <button class="btn secondary" id="btnClear" data-i18n="clear" type="button">Clear cart</button>
@@ -328,7 +344,17 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 const STORE = {
   whatsapp: "+447931217826",
   emailPedidos: "orders@tastypizza.co.uk",
-  currency: "£"
+  currency: "£",
+  // Taxas de entrega por outward code (parte inicial do postcode)
+  deliveryFees: {
+    "N8": 2.00,
+    "N10": 3.00
+  },
+  // Cupom simples: código -> porcentagem (0–1)
+  coupons: {
+    "BLACK10": 0.10
+  },
+  opening: { start: 11, end: 23 } // 11:00–22:59
 };
 const phoneDigits = STORE.whatsapp.replace(/\D/g,'');
 document.getElementById('topWhats').href = `https://wa.me/${phoneDigits}`;
@@ -406,6 +432,12 @@ const MENU = {
 function money(n){ const v = Number(n)||0; return `${STORE.currency}${v.toFixed(2)}`; }
 function safeOpen(url){ const w = window.open(url, '_blank', 'noopener'); if(w) w.opener=null; }
 function showToast(text){ const t=document.getElementById('toast'); t.textContent=text; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200); }
+function outwardFromPostcode(pc){
+  if(!pc) return '';
+  const norm = pc.toUpperCase().trim().replace(/\s+/g,'');
+  const m = norm.match(/^([A-Z]{1,2}\d[A-Z\d]?)/);
+  return m ? m[1] : '';
+}
 
 /* ===================== RENDER ===================== */
 const elTabs=document.getElementById('tabs');
@@ -428,7 +460,7 @@ function renderCat(catKey){
   elCatalog.innerHTML='';
   (MENU[catKey]||[]).forEach(item=>{
     const card=document.createElement('article'); card.className='card';
-    const bg=item.img?`style="background-image:url('./img/${item.img}'),linear-gradient(#0e0e11,#0e0e11)"`:'';
+    const bg=item.img?`style="background-image:url('./img/${item.img}'),linear-gradient(#f5f5f5,#f5f5f5)"`:'';
     card.innerHTML=`
       <div class="img" ${bg} role="img" aria-label="${item.name}"></div>
       ${item.tag?`<span class="tag">${item.tag}</span>`:''}
@@ -470,7 +502,7 @@ function renderCat(catKey){
   });
 }
 
-/* ===================== CART + CADASTRO ===================== */
+/* ===================== CART + CADASTRO + CUPOM ===================== */
 const drawer=document.getElementById('drawer');
 const overlay=document.getElementById('overlay');
 const fab=document.getElementById('fabCart');
@@ -479,22 +511,40 @@ const btnClear=document.getElementById('btnClear');
 const btnWhats=document.getElementById('btnWhats');
 const btnEmail=document.getElementById('btnEmail');
 const btnCadastro=document.getElementById('btnCadastro');
+const elSubTotal=document.getElementById('subTotal');
+const elDelFee=document.getElementById('delFee');
+const elDisc=document.getElementById('disc');
+const elTotal=document.getElementById('cartTotal');
+const elCupom=document.getElementById('cupom');
 
 const state={
   cart: JSON.parse(localStorage.getItem('cart')||'[]'),
-  cadastro: JSON.parse(localStorage.getItem('cust')||'null')
+  cadastro: JSON.parse(localStorage.getItem('cust')||'null'),
+  coupon: localStorage.getItem('coupon') || ''
 };
+if(state.coupon){ elCupom.value = state.coupon; }
 
 function openDrawer(){drawer.classList.add('active'); drawer.setAttribute('aria-hidden','false');}
 function closeDrawer(){drawer.classList.remove('active'); drawer.setAttribute('aria-hidden','true');}
 overlay.addEventListener('click',closeDrawer);
 fab.addEventListener('click',openDrawer);
 
+function computeDeliveryFee(){
+  const c = state.cadastro || {};
+  const outward = outwardFromPostcode(c.cep||'');
+  const fee = STORE.deliveryFees[outward] || 0;
+  return { outward, fee };
+}
+function computeDiscount(subtotal){
+  const code = (state.coupon||'').toUpperCase().trim();
+  const pct = STORE.coupons[code] || 0;
+  return { code, pct, value: +(subtotal * pct) };
+}
 function renderCart(){
   const list=document.getElementById('cartList'); list.innerHTML='';
-  let total=0;
+  let subtotal=0;
   state.cart.forEach((it,idx)=>{
-    total+=it.price*it.q;
+    subtotal+=it.price*it.q;
     const row=document.createElement('div'); row.className='cart-item';
     row.innerHTML=`
       <img alt="${it.name}" src="./img/${it.img}" loading="lazy" decoding="async">
@@ -506,25 +556,65 @@ function renderCart(){
     row.querySelector('button').addEventListener('click',()=>{ state.cart.splice(idx,1); renderCart(); showToast('Item removed'); });
     list.appendChild(row);
   });
-  document.getElementById('cartTotal').textContent=money(total);
-  fabCount.textContent=state.cart.reduce((a,b)=>a+b.q,0);
+
+  // fees & discount
+  const { fee } = computeDeliveryFee();
+  const discObj = computeDiscount(subtotal);
+  const discount = Math.min(discObj.value, subtotal); // nunca negativo
+  const total = Math.max(subtotal - discount + fee, 0);
+
+  // UI
+  elSubTotal.textContent = money(subtotal);
+  elDelFee.textContent = money(fee);
+  elDisc.textContent = `- ${money(discount)}`;
+  elTotal.textContent = money(total);
+
+  document.getElementById('cartTotal').textContent = money(total);
+  fabCount.textContent = state.cart.reduce((a,b)=>a+b.q,0);
+
+  // persist
   localStorage.setItem('cart', JSON.stringify(state.cart));
+
+  // habilitar ações
   const enabled = state.cart.length>0 && !!state.cadastro;
   btnWhats.disabled=!enabled; btnEmail.disabled=!enabled;
 }
-
 btnClear.addEventListener('click',()=>{ state.cart=[]; localStorage.removeItem('cart'); renderCart(); });
 
-/* ===== TEXTO PURO (sem dupla codificação) ===== */
+// Cupom
+document.getElementById('applyCupom').addEventListener('click',()=>{
+  const code = elCupom.value.trim().toUpperCase();
+  if(!code){ state.coupon=''; localStorage.removeItem('coupon'); renderCart(); return; }
+  if(!(code in STORE.coupons)){ showToast('Invalid coupon'); return; }
+  state.coupon = code; localStorage.setItem('coupon', code); renderCart(); showToast(`Coupon ${code} applied`);
+});
+document.getElementById('clearCupom').addEventListener('click',()=>{
+  state.coupon=''; localStorage.removeItem('coupon'); elCupom.value=''; renderCart();
+});
+
+// Texto puro para WA/Email (sem dupla codificação)
 function montarTextoPedido(){
   const linhas = state.cart
     .map(it => `• ${it.name} (${it.size}) x${it.q} — ${money(it.price)} ea`)
     .join('\n');
 
-  const total = state.cart.reduce((s,it)=> s + it.price*it.q, 0);
+  const subtotal = state.cart.reduce((s,it)=> s + it.price*it.q, 0);
+  const { outward, fee } = computeDeliveryFee();
+  const discObj = computeDiscount(subtotal);
+  const discount = Math.min(discObj.value, subtotal);
+  const total = Math.max(subtotal - discount + fee, 0);
+
   const c = state.cadastro || {};
   const header = (I18N[LANG].wa_header || 'Order');
   const itemsLabel = (I18N[LANG].wa_items || 'Items');
+
+  const feesBlock = [
+    '',
+    `Subtotal: ${money(subtotal)}`,
+    `Delivery fee${outward?` (${outward})`:''}: ${money(fee)}`,
+    `Discount${discObj.code?` (${discObj.code})`:''}: - ${money(discount)}`,
+    `Total: ${money(total)}`
+  ].join('\n');
 
   const cli = [
     '',
@@ -536,9 +626,7 @@ function montarTextoPedido(){
     `Notes: ${c.obs || '-'}`
   ].join('\n');
 
-  const rod = [``, `Total: ${money(total)}`, `Ref:${Date.now()}`].join('\n');
-
-  return `${header}\n\n${itemsLabel}:\n${linhas}${cli}\n${rod}`;
+  return `${header}\n\n${itemsLabel}:\n${linhas}${feesBlock}${cli}\nRef:${Date.now()}`;
 }
 function waUrl(text){
   const max = 1900;
@@ -593,8 +681,19 @@ document.getElementById('custForm').addEventListener('submit',(e)=>{
   setTimeout(()=>{ okMsg.classList.remove('show'); closeModal(); renderCart(); },800);
 });
 
+/* ===================== HORÁRIO (aberto/fechado) ===================== */
+function opStatus(){
+  const now=new Date();
+  const h=now.getHours();
+  const open = h>=STORE.opening.start && h<STORE.opening.end;
+  const el = document.getElementById('eta');
+  el.textContent = open ? 'Open • Delivery ~35–45 min • Pickup ~15 min'
+                        : 'Closed now • Pre-order available';
+}
+setInterval(opStatus, 60_000);
+
 /* ===================== THEME & LANG ===================== */
-const savedTheme = localStorage.getItem('theme') || 'mcd'; // começa no McD Light para ver o fundo branco
+const savedTheme = localStorage.getItem('theme') || 'mcd'; // inicia no tema claro
 document.documentElement.setAttribute('data-theme', savedTheme);
 document.querySelectorAll('[data-theme-btn]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -611,13 +710,13 @@ function applyLang(){
   document.documentElement.lang=(LANG==='en'?'en':'ar');
   document.documentElement.dir=(LANG==='en'?'ltr':'rtl');
   document.querySelectorAll('.flag').forEach(b=>b.classList.toggle('active', b.dataset.lang===LANG));
-  makeTabs(); renderCat(CATS[0]); renderCart();
+  makeTabs(); renderCat(CATS[0]); renderCart(); opStatus();
   localStorage.setItem('lang',LANG);
 }
 document.getElementById('btn-en').addEventListener('click', ()=>{ LANG='en'; applyLang(); });
 document.getElementById('btn-ar').addEventListener('click', ()=>{ LANG='ar'; applyLang(); });
 
-/* INIT */
+/* ===================== INIT ===================== */
 document.getElementById('y').textContent=new Date().getFullYear();
 applyLang();
 </script>
