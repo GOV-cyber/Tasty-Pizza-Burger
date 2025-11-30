@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Tasty Pizza & Burger — Black Friday Menu</title>
 
-<!-- Preview (troque og:image depois) -->
+<!-- Social preview -->
 <meta property="og:title" content="Tasty Pizza & Burger — Black Friday Menu">
 <meta property="og:description" content="Hot deals, fresh pizzas & smashing burgers. Order on WhatsApp in one tap.">
 <meta property="og:type" content="website">
@@ -15,35 +15,22 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#0b0b0d; --card:#141417; --soft:#1b1b20;
   --ink:#f5f5f6; --muted:#b0b0b6;
-  --primary:#e11d48;   /* CTA */
-  --accent:#f5c542;    /* Destaque */
-  --ctaText:#061a0b;
-  --ring:0 0 0 3px rgba(245,197,66,.28);
+  --primary:#e11d48; --accent:#f5c542;
+  --ctaText:#061a0b; --ring:0 0 0 3px rgba(245,197,66,.28);
   --radius:18px;
 }
-
-/* Temas */
-html[data-theme="hunger"]{
-  --primary:#e5262a;   /* red */
-  --accent:#ffd21f;    /* yellow */
-  --ring:0 0 0 3px rgba(255,210,31,.28);
-}
-html[data-theme="classic"]{
-  --primary:#e11d48;
-  --accent:#f5c542;
-}
-html[data-theme="fresh"]{
-  --primary:#16a34a;   /* green */
-  --accent:#9be15d;
-  --ring:0 0 0 3px rgba(22,163,74,.28);
-}
+html[data-theme="hunger"]{ --primary:#e5262a; --accent:#ffd21f; --ring:0 0 0 3px rgba(255,210,31,.28); }
+html[data-theme="classic"]{ --primary:#e11d48; --accent:#f5c542; }
+html[data-theme="fresh"]{ --primary:#16a34a; --accent:#9be15d; --ring:0 0 0 3px rgba(22,163,74,.28); }
 
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -52,13 +39,9 @@ a{color:#ffd27a;text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:18px}
 
 /* Topbar */
-header{
-  position:sticky;top:0;z-index:50;
-  backdrop-filter:saturate(140%) blur(6px);
-  background:linear-gradient(180deg, rgba(20,20,23,.94), rgba(20,20,23,.82));
-  border-bottom:1px solid #222;
-}
-.bar{display:flex;align-items:center;gap:14px;justify-content:space-between}
+header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(6px);
+  background:linear-gradient(180deg, rgba(20,20,23,.94), rgba(20,20,23,.82));border-bottom:1px solid #222}
+.bar{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px}
 .logo{width:40px;height:40px;border-radius:50%;background:#fff url('./img/logo.png') center/cover no-repeat;border:2px solid var(--primary)}
 .title{font-weight:800;letter-spacing:.3px}
@@ -69,7 +52,7 @@ header{
 .pill:hover{box-shadow:var(--ring)}
 .pill i{font-style:normal;opacity:.9}
 
-/* Socials */
+/* Social */
 .social{display:flex;gap:6px}
 .icon{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;border:1px solid #2a2a2f;background:#17171b;font-size:14px;cursor:pointer}
 .icon:hover{box-shadow:var(--ring)}
@@ -84,7 +67,7 @@ header{
 .theme[data-theme="classic"]{background:#333}
 .theme[data-theme="fresh"]{background:linear-gradient(135deg,#16a34a,#9be15d)}
 
-/* Hero banners */
+/* Hero */
 .hero{margin:22px 0;border-radius:var(--radius);padding:22px;
   background:
     radial-gradient(1100px 280px at 8% -40%, color-mix(in hsl, var(--primary) 30%, transparent), transparent 60%),
@@ -104,8 +87,8 @@ header{
 .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
 .tabs .pill.active{box-shadow:var(--ring);border-color:#3a2}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid #232327;border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-.card .img{aspect-ratio:1/1;background:#0e0e11 url('./img/pizza.jpg') center/cover no-repeat}
+.card{background:var(--card);border:1px solid #232327;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.card .img{aspect-ratio:1/1;background:#0e0e11 url('./img/pizza.jpg') center/cover no-repeat;content-visibility:auto;contain-intrinsic-size:300px 300px}
 .card .body{padding:14px 14px 10px}
 .name{font-weight:800}
 .desc{color:#cfcfd4;font-size:13px;margin:6px 0 10px;min-height:36px}
@@ -136,7 +119,7 @@ select{padding:8px 10px}
 .btn.mail{background:#000;color:#fff;border:1px solid #333}
 .btn.wa{background:#25d366;color:#073b16;border:1px solid #0c4}
 
-/* Modal cadastro */
+/* Modal cadastro (acessível) */
 .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:16px;z-index:70}
 .modal.show{display:flex}
 .card-modal{background:#141417;border-radius:20px;max-width:560px;width:100%;padding:18px;border:1px solid #232327;color:var(--ink)}
@@ -148,6 +131,11 @@ input:focus,textarea:focus,select:focus{outline:none;box-shadow:var(--ring);bord
 .ok{display:none;margin:8px 0 0;padding:10px;border-radius:12px;background:#131215;border:1px solid #2a2a30;color:#c5ffc5;font-weight:700}
 .ok.show{display:block}
 
+/* Toast */
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#151519;border:1px solid #2a2a30;border-radius:12px;padding:10px 14px;z-index:80;opacity:0;transition:.2s}
+.toast.show{opacity:1}
+
+/* Footer */
 footer{margin:40px 0 80px;color:var(--muted);text-align:center}
 
 /* RTL */
@@ -155,6 +143,21 @@ html[dir="rtl"] .row-sb{flex-direction:row-reverse}
 html[dir="rtl"] .tag{left:auto;right:10px}
 html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 </style>
+
+<!-- Structured data (SEO) -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Restaurant",
+ "name":"Tasty Pizza & Burger",
+ "telephone":"+44 20 8366 6220",
+ "address":{"@type":"PostalAddress","streetAddress":"123 Turnpike Lane","postalCode":"N8 0DU","addressCountry":"GB"},
+ "servesCuisine":["Pizza","Burgers"],
+ "priceRange":"£",
+ "hasMenu":"https://example.com/menu",
+ "sameAs":["https://www.instagram.com/yourprofile","https://www.tiktok.com/@yourprofile"]
+}
+</script>
 </head>
 <body>
 
@@ -187,41 +190,42 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 
       <!-- Idioma -->
       <div class="lang" aria-label="Language">
-        <button class="flag active" id="btn-en" data-lang="en" title="English">
+        <button class="flag active" id="btn-en" data-lang="en" title="English" type="button">
           <img alt="EN" src="https://flagcdn.com/gb.svg"> EN
         </button>
-        <button class="flag" id="btn-ar" data-lang="ar" title="العربية">
+        <button class="flag" id="btn-ar" data-lang="ar" title="العربية" type="button">
           <img alt="AR" src="https://flagcdn.com/sa.svg"> AR
         </button>
       </div>
 
       <!-- Tema -->
       <div class="themes" aria-label="Theme">
-        <button class="theme" data-theme-btn data-theme="hunger" title="Hungry"></button>
-        <button class="theme" data-theme-btn data-theme="classic" title="Classic"></button>
-        <button class="theme" data-theme-btn data-theme="fresh" title="Fresh"></button>
+        <button class="theme" data-theme-btn data-theme="hunger" title="Hungry" type="button"></button>
+        <button class="theme" data-theme-btn data-theme="classic" title="Classic" type="button"></button>
+        <button class="theme" data-theme-btn data-theme="fresh" title="Fresh" type="button"></button>
       </div>
     </div>
   </div>
 </header>
 
 <main class="container">
-  <!-- Banner Pizza Hut-style -->
-  <section class="hero">
+  <!-- Banner -->
+  <section class="hero" aria-labelledby="bfTitle1">
     <span class="badge" data-i18n="bf_badge_big">BLACK FRIDAY • LIMITED TIME</span>
-    <h1><span style="font-size:clamp(34px,6vw,56px);font-weight:800">50%</span> <span style="font-size:clamp(26px,4.5vw,40px);font-weight:800" data-i18n="off_pizzas">OFF PIZZAS</span></h1>
+    <h1 id="bfTitle1"><span style="font-size:clamp(34px,6vw,56px);font-weight:800">0%</span> <span style="font-size:clamp(26px,4.5vw,40px);font-weight:800" data-i18n="off_pizzas">OFF PIZZAS</span></h1>
     <p class="muted" data-i18n="bf_line2">Limited time only • Dine-in, collection or delivery</p>
     <div class="ctas">
       <a class="btn secondary" href="#catalog" data-i18n="see_menu">See Menu</a>
-      <button class="btn primary" id="ctaWhatsTop" data-i18n="order_whats">Order on WhatsApp</button>
+      <button class="btn primary" id="ctaWhatsTop" data-i18n="order_whats" type="button">Order on WhatsApp</button>
     </div>
   </section>
 
   <!-- Banner menor -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="bfTitle2">
     <span class="badge" data-i18n="bf_badge">BLACK FRIDAY • LIMITED TIME</span>
-    <h1><span class="gold" data-i18n="bf_title_gold">Big Deals</span> <span data-i18n="bf_title_rest">on Pizza & Burgers</span></h1>
+    <h1 id="bfTitle2"><span class="gold" data-i18n="bf_title_gold">Big Deals</span> <span data-i18n="bf_title_rest">on Pizza & Burgers</span></h1>
     <p class="muted" data-i18n="bf_desc">Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.</p>
+    <p class="muted" id="eta" aria-live="polite">Delivery ~35–45 min • Pickup ~15 min</p>
   </section>
 
   <!-- Tabs + catálogo -->
@@ -230,67 +234,76 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 </main>
 
 <!-- FAB carrinho -->
-<button class="fab" id="fabCart">🛒 <span data-i18n="cart">Cart</span> <span id="fabCount">0</span></button>
+<button class="fab" id="fabCart" type="button">🛒 <span data-i18n="cart">Cart</span> <span id="fabCount">0</span></button>
 
 <!-- Drawer carrinho -->
-<div class="drawer" id="drawer">
+<div class="drawer" id="drawer" aria-hidden="true">
   <div class="overlay" id="overlay"></div>
-  <aside class="panel">
-    <h2 style="margin:0" data-i18n="your_cart">Your order</h2>
+  <aside class="panel" aria-labelledby="cartTitle">
+    <h2 id="cartTitle" style="margin:0" data-i18n="your_cart">Your order</h2>
     <div id="cartList"></div>
     <div class="totals">
       <div class="row-sb">
         <strong data-i18n="total">Total</strong>
-        <strong id="cartTotal">£0.00</strong>
+        <strong id="cartTotal" aria-live="polite">£0.00</strong>
       </div>
+      <div class="muted" style="font-size:12px">No online payment • Pay on delivery/pickup</div>
     </div>
     <div class="cta">
-      <button class="btn secondary" id="btnCadastro" data-i18n="open_signup">Customer details</button>
-      <button class="btn secondary" id="btnClear" data-i18n="clear">Clear cart</button>
-      <button class="btn wa" id="btnWhats" disabled data-i18n="finish_wa">Finish on WhatsApp</button>
-      <button class="btn mail" id="btnEmail" disabled data-i18n="finish_mail">Send by Email</button>
+      <button class="btn secondary" id="btnCadastro" data-i18n="open_signup" type="button">Customer details</button>
+      <button class="btn secondary" id="btnClear" data-i18n="clear" type="button">Clear cart</button>
+      <button class="btn wa" id="btnWhats" disabled data-i18n="finish_wa" type="button">Finish on WhatsApp</button>
+      <button class="btn mail" id="btnEmail" disabled data-i18n="finish_mail" type="button">Send by Email</button>
     </div>
   </aside>
 </div>
 
-<!-- Modal cadastro -->
-<div class="modal" id="modal">
+<!-- Modal cadastro acessível -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="custTitle" aria-describedby="custHint">
   <div class="card-modal">
-    <h3 data-i18n="cust_title">Customer details</h3>
-    <p class="muted" style="margin-top:-6px" data-i18n="cust_hint">Required to deliver or arrange pickup. No online payment here.</p>
-    <div class="grid2">
-      <label> <span data-i18n="name">Name</span>
-        <input id="c_nome" placeholder="John Doe" required>
-      </label>
-      <label> <span data-i18n="phone">Phone (WhatsApp)</span>
-        <input id="c_tel" placeholder="+44 7…" required>
-      </label>
-      <label class="full"> <span data-i18n="mode">Order type</span>
-        <select id="c_mode">
-          <option value="delivery" data-i18n="delivery">Delivery</option>
-          <option value="pickup" data-i18n="pickup">Pickup</option>
-        </select>
-      </label>
-      <label> <span data-i18n="address">Address</span>
-        <input id="c_addr" placeholder="Street, number">
-      </label>
-      <label> <span data-i18n="postcode">Postcode</span>
-        <input id="c_cep" placeholder="N8 …">
-      </label>
-      <label class="full"> <span data-i18n="notes">Notes</span>
-        <textarea id="c_obs" rows="3" placeholder="Door code, no onions, etc."></textarea>
-      </label>
-    </div>
-    <div class="row" style="justify-content:space-between;margin-top:12px">
-      <button class="pill" id="fecharModal" data-i18n="back">Back</button>
-      <button class="pill" id="salvarCadastro" data-i18n="save">Save details</button>
-    </div>
-    <div class="ok" id="okMsg" data-i18n="saved_ok">Saved! 🎉</div>
+    <h3 id="custTitle" data-i18n="cust_title">Customer details</h3>
+    <p class="muted" id="custHint" style="margin-top:-6px" data-i18n="cust_hint">Required to deliver or arrange pickup. No online payment here.</p>
+    <form id="custForm" novalidate>
+      <div class="grid2">
+        <label> <span data-i18n="name">Name</span>
+          <input id="c_nome" placeholder="John Doe" required autocomplete="name">
+        </label>
+        <label> <span data-i18n="phone">Phone (WhatsApp)</span>
+          <input id="c_tel" type="tel" inputmode="tel" placeholder="+44 7…" required autocomplete="tel">
+        </label>
+        <label class="full"> <span data-i18n="mode">Order type</span>
+          <select id="c_mode">
+            <option value="delivery" data-i18n="delivery">Delivery</option>
+            <option value="pickup" data-i18n="pickup">Pickup</option>
+          </select>
+        </label>
+        <label> <span data-i18n="address">Address</span>
+          <input id="c_addr" placeholder="Street, number" autocomplete="address-line1">
+        </label>
+        <label> <span data-i18n="postcode">Postcode</span>
+          <input id="c_cep" placeholder="N8 0DU" pattern="^([A-Z]{1,2}\\d[A-Z\\d]?)\\s?(\\d[A-Z]{2})$" title="Ex.: N8 0DU" autocomplete="postal-code">
+        </label>
+        <label class="full"> <span data-i18n="notes">Notes</span>
+          <textarea id="c_obs" rows="3" placeholder="Door code, no onions, etc."></textarea>
+        </label>
+        <label class="full" style="display:flex;gap:8px;align-items:center">
+          <input id="c_rem" type="checkbox"> <span>Remember my details on this device</span>
+        </label>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:12px">
+        <button class="pill" id="fecharModal" type="button" data-i18n="back">Back</button>
+        <button class="pill" id="salvarCadastro" type="submit" data-i18n="save">Save details</button>
+      </div>
+      <div class="ok" id="okMsg" data-i18n="saved_ok">Saved! 🎉</div>
+    </form>
   </div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <footer class="container">
   <p data-i18n="foot_note">Prices in GBP. Images illustrative. Black Friday deals while stocks last.</p>
+  <p style="font-size:12px">We only store your details locally if you choose “Remember”. You can clear at any time.</p>
   <p>© <span id="y"></span> Tasty Pizza & Burger</p>
 </footer>
 
@@ -301,13 +314,13 @@ const STORE = {
   emailPedidos: "orders@tastypizza.co.uk",
   currency: "£"
 };
-document.getElementById('topWhats').href = `https://wa.me/${STORE.whatsapp.replace(/\D/g,'')}`;
-document.getElementById('ctaWhatsTop').addEventListener('click', ()=>window.open(`https://wa.me/${STORE.whatsapp.replace(/\D/g,'')}`,'_blank'));
+const phoneDigits = STORE.whatsapp.replace(/\D/g,'');
+document.getElementById('topWhats').href = `https://wa.me/${phoneDigits}`;
+document.getElementById('ctaWhatsTop').addEventListener('click', ()=>safeOpen(`https://wa.me/${phoneDigits}`));
 
 /* ===================== I18N ===================== */
 const I18N = {
-  en:{
-    brand:"Tasty Pizza & Burger", slogan:"Hot. Fresh. Fast.",
+  en:{brand:"Tasty Pizza & Burger", slogan:"Hot. Fresh. Fast.",
     bf_badge_big:"BLACK FRIDAY • LIMITED TIME", off_pizzas:"OFF PIZZAS",
     bf_badge:"BLACK FRIDAY • LIMITED TIME", bf_title_gold:"Big Deals", bf_title_rest:"on Pizza & Burgers",
     bf_desc:"Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.",
@@ -319,13 +332,11 @@ const I18N = {
     open_signup:"Customer details", finish_wa:"Finish on WhatsApp", finish_mail:"Send by Email",
     foot_note:"Prices in GBP. Images illustrative. Black Friday deals while stocks last.",
     wa_header:"Order via Black Friday menu", wa_items:"Items",
-    /* cadastro */
     cust_title:"Customer details", cust_hint:"Required to deliver or arrange pickup. No online payment here.",
     name:"Name", phone:"Phone (WhatsApp)", mode:"Order type", delivery:"Delivery", pickup:"Pickup",
     address:"Address", postcode:"Postcode", notes:"Notes", back:"Back", save:"Save details", saved_ok:"Saved! 🎉"
   },
-  ar:{
-    brand:"تيْسْتي بيتزا وبرغر", slogan:"ساخنة وطازجة وسريعة",
+  ar:{brand:"تيْسْتي بيتزا وبرغر", slogan:"ساخنة وطازجة وسريعة",
     bf_badge_big:"عروض الجمعة السوداء • لفترة محدودة", off_pizzas:"خصم على البيتزا",
     bf_badge:"عروض الجمعة السوداء • لفترة محدودة", bf_title_gold:"خصومات كبيرة", bf_title_rest:"على البيتزا والبرغر",
     bf_desc:"اختر الحجم والإضافات، أضف إلى السلة وأكمل عبر واتساب. توصيل أو استلام.",
@@ -346,7 +357,6 @@ let LANG = localStorage.getItem('lang') || 'en';
 
 /* ===================== MENU ===================== */
 const CATS = ["pizzas","burgers","wraps","sides","deals","drinks"];
-
 const MENU = {
   pizzas:[
     {id:"p-marg", name:"Margherita", desc_en:"Classic tomato & mozzarella.", desc_ar:"صلصة طماطم مع جبنة موزاريلا.", sizes:{'10"':5.99,'12"':7.99,'15"':9.99}, tag:"HOT", img:"pizza-margherita.jpg"},
@@ -376,15 +386,19 @@ const MENU = {
   ]
 };
 
+/* ===================== HELPERS ===================== */
+function money(n){ const v = Number(n)||0; return `${STORE.currency}${v.toFixed(2)}`; }
+function safeOpen(url){ const w = window.open(url, '_blank', 'noopener'); if(w) w.opener=null; }
+function showToast(text){ const t=document.getElementById('toast'); t.textContent=text; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200); }
+
 /* ===================== RENDER ===================== */
 const elTabs=document.getElementById('tabs');
 const elCatalog=document.getElementById('catalog');
-function money(n){return `${STORE.currency}${n.toFixed(2)}`;}
-
 function makeTabs(){
   elTabs.innerHTML='';
   I18N[LANG].tabs.forEach((t,i)=>{
     const b=document.createElement('button');
+    b.type='button';
     b.className='pill'+(i===0?' active':'');
     b.textContent=t; b.dataset.cat=CATS[i];
     b.addEventListener('click',()=>{
@@ -394,48 +408,47 @@ function makeTabs(){
     elTabs.appendChild(b);
   });
 }
-
 function renderCat(catKey){
   elCatalog.innerHTML='';
   (MENU[catKey]||[]).forEach(item=>{
     const card=document.createElement('article'); card.className='card';
     const bg=item.img?`style="background-image:url('./img/${item.img}'),linear-gradient(#0e0e11,#0e0e11)"`:'';
     card.innerHTML=`
-      <div class="img" ${bg}></div>
+      <div class="img" ${bg} role="img" aria-label="${item.name}"></div>
       ${item.tag?`<span class="tag">${item.tag}</span>`:''}
       <div class="body">
         <div class="name">${item.name}</div>
         <div class="desc">${LANG==='en'?item.desc_en:item.desc_ar}</div>
         <div class="row-sb">
           <label><span data-i18n="size">${I18N[LANG].size}</span>:
-            <select>
+            <select aria-label="Size">
               ${Object.entries(item.sizes).map(([k,v])=>`<option value="${v}">${k} — ${money(v)}</option>`).join('')}
             </select>
           </label>
           <div class="qty" aria-label="${I18N[LANG].qty}">
-            <button class="minus">−</button><span class="q">1</span><button class="plus">+</button>
+            <button class="minus" type="button" aria-label="Decrease quantity">−</button>
+            <span class="q">1</span>
+            <button class="plus" type="button" aria-label="Increase quantity">+</button>
           </div>
         </div>
         <div class="row-sb" style="margin-top:8px">
           <div class="price">${I18N[LANG].from} ${money(Math.min(...Object.values(item.sizes)))}</div>
-          <button class="btn add" data-id="${item.id}">${I18N[LANG].add}</button>
+          <button class="btn add" data-id="${item.id}" type="button">${I18N[LANG].add}</button>
         </div>
       </div>`;
-    // qty
     const qty=card.querySelector('.qty');
     qty.addEventListener('click',e=>{
       const span=qty.querySelector('.q'); let q=parseInt(span.textContent,10);
       if(e.target.classList.contains('minus')) q=Math.max(1,q-1);
       if(e.target.classList.contains('plus')) q=q+1; span.textContent=q;
     });
-    // add
     card.querySelector('.add').addEventListener('click',()=>{
       const sizeSel=card.querySelector('select');
       const price=parseFloat(sizeSel.value);
       const sizeName=sizeSel.options[sizeSel.selectedIndex].text.split(' — ')[0];
       const q=parseInt(card.querySelector('.q').textContent,10);
       state.cart.push({id:item.id,name:item.name,desc:(LANG==='en'?item.desc_en:item.desc_ar),size:sizeName,price,q,img:item.img||'pizza.jpg'});
-      renderCart(); openDrawer();
+      renderCart(); openDrawer(); showToast('Item added to cart');
     });
     elCatalog.appendChild(card);
   });
@@ -451,11 +464,15 @@ const btnWhats=document.getElementById('btnWhats');
 const btnEmail=document.getElementById('btnEmail');
 const btnCadastro=document.getElementById('btnCadastro');
 
-const state={ cart:[], cadastro: JSON.parse(localStorage.getItem('cust')||'null') };
+const state={
+  cart: JSON.parse(localStorage.getItem('cart')||'[]'),
+  cadastro: JSON.parse(localStorage.getItem('cust')||'null')
+};
 
-function openDrawer(){drawer.classList.add('active');}
-function closeDrawer(){drawer.classList.remove('active');}
-overlay.addEventListener('click',closeDrawer); fab.addEventListener('click',openDrawer);
+function openDrawer(){drawer.classList.add('active'); drawer.setAttribute('aria-hidden','false');}
+function closeDrawer(){drawer.classList.remove('active'); drawer.setAttribute('aria-hidden','true');}
+overlay.addEventListener('click',closeDrawer);
+fab.addEventListener('click',openDrawer);
 
 function renderCart(){
   const list=document.getElementById('cartList'); list.innerHTML='';
@@ -464,58 +481,78 @@ function renderCart(){
     total+=it.price*it.q;
     const row=document.createElement('div'); row.className='cart-item';
     row.innerHTML=`
-      <img alt="" src="./img/${it.img}">
+      <img alt="${it.name}" src="./img/${it.img}" loading="lazy" decoding="async">
       <div>
         <div style="font-weight:800">${it.name}</div>
         <div class="meta">${it.size} • ${I18N[LANG].qty}: ${it.q} • ${money(it.price)} ea</div>
       </div>
-      <button class="btn" style="padding:8px" aria-label="Remove">✕</button>`;
-    row.querySelector('button').addEventListener('click',()=>{ state.cart.splice(idx,1); renderCart(); });
+      <button class="btn" style="padding:8px" type="button" aria-label="Remove">✕</button>`;
+    row.querySelector('button').addEventListener('click',()=>{ state.cart.splice(idx,1); renderCart(); showToast('Item removed'); });
     list.appendChild(row);
   });
   document.getElementById('cartTotal').textContent=money(total);
   fabCount.textContent=state.cart.reduce((a,b)=>a+b.q,0);
+  localStorage.setItem('cart', JSON.stringify(state.cart));
   const enabled = state.cart.length>0 && !!state.cadastro;
   btnWhats.disabled=!enabled; btnEmail.disabled=!enabled;
 }
 
-btnClear.addEventListener('click',()=>{ state.cart=[]; renderCart(); });
+btnClear.addEventListener('click',()=>{ state.cart=[]; localStorage.removeItem('cart'); renderCart(); });
 
+// 1) Gera TEXTO PURO (sem %0A, sem encodeURIComponent)
 function montarTextoPedido(){
-  const linhas = state.cart.map(it=>`• ${it.name} (${it.size}) x${it.q} — ${money(it.price)} ea`).join('%0A');
+  const linhas = state.cart
+    .map(it => `• ${it.name} (${it.size}) x${it.q} — ${money(it.price)} ea`)
+    .join('\n');
+
   const total = state.cart.reduce((s,it)=> s + it.price*it.q, 0);
   const c = state.cadastro || {};
-  const header = encodeURIComponent(I18N[LANG].wa_header);
-  const itemsLabel = encodeURIComponent(I18N[LANG].wa_items);
-  const cli =
-`%0A%0A${encodeURIComponent('Customer')}: ${encodeURIComponent(c.nome||'-')}
-%0AWhatsApp: ${encodeURIComponent(c.tel||'-')}
-%0AType: ${encodeURIComponent(c.mode||'-')}
-%0AAddress: ${encodeURIComponent(c.addr||'-')}
-%0APostcode: ${encodeURIComponent(c.cep||'-')}
-%0ANotes: ${encodeURIComponent(c.obs||'-')}`;
-  const rod = `%0A%0ATotal: ${money(total)}%0ARef:${Date.now()}`;
-  return `${header}%0A%0A${itemsLabel}:%0A${linhas}${cli}${rod}`;
+
+  const header = (I18N[LANG].wa_header || 'Order');
+  const itemsLabel = (I18N[LANG].wa_items || 'Items');
+
+  const cli = [
+    '',
+    `Customer: ${c.nome || '-'}`,
+    `WhatsApp: ${c.tel || '-'}`,
+    `Type: ${c.mode || '-'}`,
+    `Address: ${c.addr || '-'}`,
+    `Postcode: ${c.cep || '-'}`,
+    `Notes: ${c.obs || '-'}`
+  ].join('\n');
+
+  const rod = [``, `Total: ${money(total)}`, `Ref:${Date.now()}`].join('\n');
+
+  return `${header}\n\n${itemsLabel}:\n${linhas}${cli}\n${rod}`;
 }
 
+// 2) Codifica APENAS UMA VEZ ao criar o link do WhatsApp
+function waUrl(text){
+  const phone = STORE.whatsapp.replace(/\D/g,'');
+  const max = 1900;                           // margem segura
+  const msg = text.length > max ? (text.slice(0, max-1) + '…') : text;
+  return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+}
+
+// 3) Ações dos botões (sem re-codificar nada)
 btnWhats.addEventListener('click', ()=>{
-  const texto = montarTextoPedido();
-  const url = `https://wa.me/${STORE.whatsapp.replace(/\D/g,'')}?text=${texto}`;
-  window.open(url,'_blank');
+  const texto = montarTextoPedido();          // texto puro
+  safeOpen(waUrl(texto));                     // codifica 1x aqui
 });
+
 btnEmail.addEventListener('click', ()=>{
-  const assunto = encodeURIComponent(`Order — ${I18N[LANG].brand||'Tasty Pizza'}`);
-  const corpo = decodeURIComponent(montarTextoPedido()).replace(/%0A/g,'\n');
-  const url = `mailto:${STORE.emailPedidos}?subject=${assunto}&body=${encodeURIComponent(corpo)}`;
+  const assunto = `Order — ${I18N[LANG].brand || 'Tasty Pizza'}`;
+  const corpo = montarTextoPedido();          // texto puro
+  const url = `mailto:${STORE.emailPedidos}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
   window.location.href = url;
 });
 
-/* ===== Modal cadastro ===== */
+
+/* ===== Modal cadastro (acessível) ===== */
 const modal=document.getElementById('modal');
 const btnSalvar=document.getElementById('salvarCadastro');
 const btnFechar=document.getElementById('fecharModal');
 const okMsg=document.getElementById('okMsg');
-
 function fillCadastro(){
   const c=state.cadastro||{};
   document.getElementById('c_nome').value=c.nome||'';
@@ -524,22 +561,31 @@ function fillCadastro(){
   document.getElementById('c_addr').value=c.addr||'';
   document.getElementById('c_cep').value=c.cep||'';
   document.getElementById('c_obs').value=c.obs||'';
+  document.getElementById('c_rem').checked=!!localStorage.getItem('cust');
 }
-btnCadastro.addEventListener('click',()=>{ fillCadastro(); modal.classList.add('show'); });
-btnFechar.addEventListener('click',()=> modal.classList.remove('show'));
-btnSalvar.addEventListener('click',()=>{
+function closeModal(){ modal.classList.remove('show'); document.removeEventListener('keydown', trapKeys); }
+function openModal(){ fillCadastro(); modal.classList.add('show'); document.getElementById('c_nome').focus(); document.addEventListener('keydown', trapKeys); }
+function trapKeys(e){ if(e.key==='Escape') closeModal(); }
+btnCadastro.addEventListener('click',openModal);
+btnFechar.addEventListener('click',closeModal);
+document.getElementById('custForm').addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const tel = document.getElementById('c_tel').value.trim();
+  const cep = document.getElementById('c_cep').value.trim().toUpperCase().replace(/\s+/g,'');
+  const cepFormatted = cep.replace(/^([A-Z]{1,2}\d[A-Z\d]?)(\d[A-Z]{2})$/,'$1 $2');
   const c={
     nome:document.getElementById('c_nome').value.trim(),
-    tel:document.getElementById('c_tel').value.trim(),
+    tel:tel,
     mode:document.getElementById('c_mode').value,
     addr:document.getElementById('c_addr').value.trim(),
-    cep:document.getElementById('c_cep').value.trim(),
+    cep:cepFormatted || '',
     obs:document.getElementById('c_obs').value.trim()
   };
   if(!c.nome || !c.tel){ alert(LANG==='en'?'Name and phone are required.':'الاسم والهاتف مطلوبان.'); return; }
-  state.cadastro=c; localStorage.setItem('cust',JSON.stringify(c));
+  state.cadastro=c;
+  if(document.getElementById('c_rem').checked){ localStorage.setItem('cust',JSON.stringify(c)); } else { localStorage.removeItem('cust'); }
   okMsg.classList.add('show');
-  setTimeout(()=>{ okMsg.classList.remove('show'); modal.classList.remove('show'); renderCart(); },800);
+  setTimeout(()=>{ okMsg.classList.remove('show'); closeModal(); renderCart(); },800);
 });
 
 /* ===================== THEME & LANG ===================== */
