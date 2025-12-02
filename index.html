@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -58,6 +58,8 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(6px)
 .theme{width:28px;height:28px;border-radius:999px;padding:0;border:1px solid var(--border)}
 .theme[data-theme="light"]{background:linear-gradient(135deg,#ffbc0d,#ffd861)}
 .theme[data-theme="dark"]{background:#333}
+.flag.active{outline:3px solid rgba(0,0,0,.08)}
+html[dir="rtl"] .flag{direction:ltr}
 
 /* Hero */
 .hero{margin:22px 0;border-radius:var(--radius);padding:22px;
@@ -163,6 +165,13 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
         <button class="theme" data-theme="light" id="theme-light" title="Light" type="button"></button>
         <button class="theme" data-theme="dark" id="theme-dark" title="Dark" type="button"></button>
       </div>
+
+      <!-- LANGUAGE MENU -->
+      <div class="lang" aria-label="Languages">
+        <button class="pill flag" data-lang="en" type="button">🇬🇧 EN</button>
+        <button class="pill flag" data-lang="bn" type="button">🇧🇩 BN</button>
+        <button class="pill flag" data-lang="ar" type="button">🇸🇦 AR</button>
+      </div>
     </div>
   </div>
 </header>
@@ -170,18 +179,18 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 <main class="container">
   <section class="hero" aria-labelledby="bfTitle1">
     <span class="badge">BLACK FRIDAY • LIMITED TIME</span>
-    <h1 id="bfTitle1"><span style="font-size:clamp(34px,6vw,56px);font-weight:800">0%</span> <span style="font-size:clamp(26px,4.5vw,40px);font-weight:800">OFF PIZZAS</span></h1>
-    <p class="muted">Limited time only • Dine-in, collection or delivery</p>
+    <h1 id="bfTitle1"><span style="font-size:clamp(34px,6vw,56px);font-weight:800">0%</span> <span style="font-size:clamp(26px,4.5vw,40px);font-weight:800" data-i18n="off_pizzas">OFF PIZZAS</span></h1>
+    <p class="muted" data-i18n="line2">Limited time only • Dine-in, collection or delivery</p>
     <div class="ctas">
-      <a class="btn secondary" href="#catalog">See Menu</a>
-      <button class="btn primary" id="ctaWhatsTop" type="button">Order on WhatsApp</button>
+      <a class="btn secondary" href="#catalog" data-i18n="see_menu">See Menu</a>
+      <button class="btn primary" id="ctaWhatsTop" type="button" data-i18n="order_wa">Order on WhatsApp</button>
     </div>
   </section>
 
   <section class="hero" aria-labelledby="bfTitle2">
     <span class="badge">BLACK FRIDAY • LIMITED TIME</span>
-    <h1 id="bfTitle2"><span class="gold">Big Deals</span> <span>on Pizza & Burgers</span></h1>
-    <p class="muted">Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.</p>
+    <h1 id="bfTitle2"><span class="gold" data-i18n="big_deals">Big Deals</span> <span data-i18n="on_pizza_burgers">on Pizza & Burgers</span></h1>
+    <p class="muted" data-i18n="desc_bf">Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.</p>
     <p class="muted" id="eta" aria-live="polite">Open • Delivery ~35–45 min • Pickup ~15 min</p>
   </section>
 
@@ -189,38 +198,38 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
   <section id="catalog" class="grid" aria-live="polite"></section>
 </main>
 
-<button class="fab" id="fabCart" type="button">🛒 <span>Cart</span> <span id="fabCount">0</span></button>
+<button class="fab" id="fabCart" type="button">🛒 <span data-i18n="cart">Cart</span> <span id="fabCount">0</span></button>
 
 <div class="drawer" id="drawer" aria-hidden="true">
   <div class="overlay" id="overlay"></div>
   <aside class="panel" aria-labelledby="cartTitle">
-    <h2 id="cartTitle" style="margin:0">Your order</h2>
+    <h2 id="cartTitle" style="margin:0" data-i18n="your_order">Your order</h2>
     <div id="cartList"></div>
 
     <div class="totals">
-      <div class="row-sb"><span>Subtotal</span><strong id="subTotal">£0.00</strong></div>
-      <div class="row-sb"><span>Service fee</span><strong id="svcFee">£0.00</strong></div>
-      <div class="row-sb"><span>Delivery fee <small id="distHint" style="color:var(--muted)"></small></span><strong id="delFee">£0.00</strong></div>
-      <div class="row-sb"><span>Small order fee</span><strong id="smallFee">£0.00</strong></div>
-      <div class="row-sb"><span>Discount</span><strong id="disc">- £0.00</strong></div>
+      <div class="row-sb"><span data-i18n="subtotal">Subtotal</span><strong id="subTotal">£0.00</strong></div>
+      <div class="row-sb"><span data-i18n="service_fee">Service fee</span><strong id="svcFee">£0.00</strong></div>
+      <div class="row-sb"><span data-i18n="delivery_fee">Delivery fee</span> <small id="distHint" style="color:var(--muted)"></small><strong id="delFee">£0.00</strong></div>
+      <div class="row-sb"><span data-i18n="small_order_fee">Small order fee</span><strong id="smallFee">£0.00</strong></div>
+      <div class="row-sb"><span data-i18n="discount">Discount</span><strong id="disc">- £0.00</strong></div>
       <div class="row-sb" style="border-top:1px solid var(--border);padding-top:8px">
-        <strong>Total</strong>
+        <strong data-i18n="total">Total</strong>
         <strong id="cartTotal" aria-live="polite">£0.00</strong>
       </div>
-      <div class="muted" style="font-size:12px">No online payment • Pay on delivery/pickup</div>
+      <div class="muted" style="font-size:12px" data-i18n="no_online_pay">No online payment • Pay on delivery/pickup</div>
     </div>
 
     <div class="row" style="gap:8px">
       <input id="cupom" placeholder="Coupon (e.g., BLACK10)" style="flex:1">
-      <button class="pill" id="applyCupom" type="button">Apply</button>
-      <button class="pill" id="clearCupom" type="button">Clear</button>
+      <button class="pill" id="applyCupom" type="button" data-i18n="apply">Apply</button>
+      <button class="pill" id="clearCupom" type="button" data-i18n="clear">Clear</button>
     </div>
 
     <div class="cta">
-      <button class="btn secondary" id="btnCadastro" type="button">Customer details</button>
-      <button class="btn secondary" id="btnClear" type="button">Clear cart</button>
-      <button class="btn wa" id="btnWhats" disabled type="button">Finish on WhatsApp</button>
-      <button class="btn mail" id="btnEmail" disabled type="button">Send by Email</button>
+      <button class="btn secondary" id="btnCadastro" type="button" data-i18n="cust_details">Customer details</button>
+      <button class="btn secondary" id="btnClear" type="button" data-i18n="clear_cart">Clear cart</button>
+      <button class="btn wa" id="btnWhats" disabled type="button" data-i18n="finish_wa">Finish on WhatsApp</button>
+      <button class="btn mail" id="btnEmail" disabled type="button" data-i18n="send_email">Send by Email</button>
     </div>
   </aside>
 </div>
@@ -228,30 +237,30 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 <!-- MODAL CADASTRO -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="custTitle" aria-describedby="custHint">
   <div class="card-modal">
-    <h3 id="custTitle">Customer details</h3>
-    <p class="muted" id="custHint" style="margin-top:-6px">Required to deliver or arrange pickup. No online payment here.</p>
+    <h3 id="custTitle" data-i18n="cust_details">Customer details</h3>
+    <p class="muted" id="custHint" style="margin-top:-6px" data-i18n="cust_hint">Required to deliver or arrange pickup. No online payment here.</p>
     <form id="custForm" novalidate>
       <div class="grid2">
-        <label><span>Name</span><input id="c_nome" placeholder="John Doe" required autocomplete="name"></label>
-        <label><span>Phone (WhatsApp)</span><input id="c_tel" type="tel" inputmode="tel" placeholder="+44 7…" required autocomplete="tel"></label>
-        <label class="full"><span>Order type</span>
-          <select id="c_mode"><option value="delivery">Delivery</option><option value="pickup">Pickup</option></select>
+        <label><span data-i18n="name">Name</span><input id="c_nome" placeholder="John Doe" required autocomplete="name"></label>
+        <label><span data-i18n="phone">Phone (WhatsApp)</span><input id="c_tel" type="tel" inputmode="tel" placeholder="+44 7…" required autocomplete="tel"></label>
+        <label class="full"><span data-i18n="order_type">Order type</span>
+          <select id="c_mode"><option value="delivery" data-i18n="delivery">Delivery</option><option value="pickup" data-i18n="pickup">Pickup</option></select>
         </label>
-        <label><span>Address</span><input id="c_addr" placeholder="Street, number" autocomplete="address-line1"></label>
-        <label><span>Postcode</span>
+        <label><span data-i18n="address">Address</span><input id="c_addr" placeholder="Street, number" autocomplete="address-line1"></label>
+        <label><span data-i18n="postcode">Postcode</span>
           <div style="display:flex;gap:8px">
             <input id="c_cep" placeholder="N8 0DU" autocomplete="postal-code" style="flex:1">
-            <button class="pill" type="button" id="btnCalc">Calcular delivery</button>
+            <button class="pill" type="button" id="btnCalc" data-i18n="calc_delivery">Calculate delivery</button>
           </div>
         </label>
-        <label class="full"><span>Notes</span><textarea id="c_obs" rows="3" placeholder="Door code, no onions, etc."></textarea></label>
-        <label class="full" style="display:flex;gap:8px;align-items:center"><input id="c_rem" type="checkbox"> <span>Remember my details on this device</span></label>
+        <label class="full"><span data-i18n="notes">Notes</span><textarea id="c_obs" rows="3" placeholder="Door code, no onions, etc."></textarea></label>
+        <label class="full" style="display:flex;gap:8px;align-items:center"><input id="c_rem" type="checkbox"> <span data-i18n="remember">Remember my details on this device</span></label>
       </div>
       <div class="row" style="justify-content:space-between;margin-top:12px">
-        <button class="pill" id="fecharModal" type="button">Back</button>
-        <button class="pill" id="salvarCadastro" type="submit">Save details</button>
+        <button class="pill" id="fecharModal" type="button" data-i18n="back">Back</button>
+        <button class="pill" id="salvarCadastro" type="submit" data-i18n="save">Save details</button>
       </div>
-      <div class="ok" id="okMsg">Saved! 🎉</div>
+      <div class="ok" id="okMsg" data-i18n="saved_ok">Saved! 🎉</div>
     </form>
   </div>
 </div>
@@ -259,21 +268,109 @@ html[dir="rtl"] .cart-item{grid-template-columns:auto 1fr 64px}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer class="container">
-  <p>Prices in GBP. Images illustrative. Black Friday deals while stocks last.</p>
-  <p style="font-size:12px">We only store your details locally if you choose “Remember”. You can clear at any time.</p>
+  <p data-i18n="foot1">Prices in GBP. Images illustrative. Black Friday deals while stocks last.</p>
+  <p style="font-size:12px" data-i18n="foot2">We only store your details locally if you choose “Remember”. You can clear at any time.</p>
   <p>© <span id="y"></span> Tasty Pizza & Burger</p>
 </footer>
 
 <script>
+/* ===================== I18N CORE ===================== */
+const LANGS=["en","bn","ar"];
+let LANG = localStorage.getItem('lang') || 'en';
+function applyDir(){
+  document.documentElement.lang = LANG === 'bn' ? 'bn' : LANG;
+  if(LANG==='ar'){ document.documentElement.setAttribute('dir','rtl'); }
+  else { document.documentElement.setAttribute('dir','ltr'); }
+}
+applyDir();
+
+const I18N = {
+  en:{
+    brand:"Tasty Pizza & Burger", slogan:"Hot. Fresh. Fast.",
+    off_pizzas:"OFF PIZZAS", line2:"Limited time only • Dine-in, collection or delivery",
+    see_menu:"See Menu", order_wa:"Order on WhatsApp",
+    big_deals:"Big Deals", on_pizza_burgers:"on Pizza & Burgers", desc_bf:"Choose size and extras, add to cart and finish via WhatsApp. Pickup or delivery.",
+    tabs:["Pizzas","Burgers","Wraps","Sides","Deals","Drinks"],
+    cart:"Cart", your_order:"Your order", subtotal:"Subtotal", service_fee:"Service fee",
+    delivery_fee:"Delivery fee", small_order_fee:"Small order fee", discount:"Discount", total:"Total",
+    no_online_pay:"No online payment • Pay on delivery/pickup",
+    apply:"Apply", clear:"Clear", cust_details:"Customer details", clear_cart:"Clear cart",
+    finish_wa:"Finish on WhatsApp", send_email:"Send by Email",
+    cust_hint:"Required to deliver or arrange pickup. No online payment here.",
+    name:"Name", phone:"Phone (WhatsApp)", order_type:"Order type", delivery:"Delivery", pickup:"Pickup",
+    address:"Address", postcode:"Postcode", calc_delivery:"Calculate delivery", notes:"Notes",
+    remember:"Remember my details on this device", back:"Back", save:"Save details", saved_ok:"Saved! 🎉",
+    added:"Item added to cart", removed:"Item removed", invalid_coupon:"Invalid coupon", coupon_applied:"Coupon {code} applied",
+    foot1:"Prices in GBP. Images illustrative. Black Friday deals while stocks last.",
+    foot2:"We only store your details locally if you choose “Remember”. You can clear at any time."
+  },
+  bn:{
+    brand:"টেস্টি পিজ্জা & বার্গার", slogan:"গরম • টাটকা • দ্রুত",
+    off_pizzas:"পিজ্জায় ছাড়", line2:"সীমিত সময় • রেস্টুরেন্ট/কালেকশন/ডেলিভারি",
+    see_menu:"মেনু দেখুন", order_wa:"হোয়াটসঅ্যাপে অর্ডার",
+    big_deals:"বড় অফার", on_pizza_burgers:"পিজ্জা ও বার্গারে", desc_bf:"সাইজ ও এক্সট্রা বেছে নিন, কার্টে যোগ করুন, হোয়াটসঅ্যাপে শেষ করুন।",
+    tabs:["পিজ্জা","বার্গার","র‌্যাপস","সাইডস","ডিলস","ড্রিংকস"],
+    cart:"কার্ট", your_order:"আপনার অর্ডার", subtotal:"সাবটোটাল", service_fee:"সার্ভিস ফি",
+    delivery_fee:"ডেলিভারি ফি", small_order_fee:"স্মল অর্ডার ফি", discount:"ডিসকাউন্ট", total:"মোট",
+    no_online_pay:"অনলাইনে পেমেন্ট নয় • ডেলিভারি/পিকআপে পরিশোধ",
+    apply:"প্রয়োগ", clear:"মুছুন", cust_details:"গ্রাহকের তথ্য", clear_cart:"কার্ট খালি করুন",
+    finish_wa:"হোয়াটসঅ্যাপে শেষ করুন", send_email:"ইমেইলে পাঠান",
+    cust_hint:"ডেলিভারি বা পিকআপের জন্য প্রয়োজনীয়। এখানে অনলাইন পেমেন্ট নেই।",
+    name:"নাম", phone:"ফোন (হোয়াটসঅ্যাপ)", order_type:"অর্ডারের ধরন", delivery:"ডেলিভারি", pickup:"পিকআপ",
+    address:"ঠিকানা", postcode:"পোস্টকোড", calc_delivery:"ডেলিভারি হিসাব", notes:"নোট",
+    remember:"এই ডিভাইসে আমার তথ্য রাখুন", back:"পিছনে", save:"সংরক্ষণ", saved_ok:"সংরক্ষিত! 🎉",
+    added:"আইটেম কার্টে যোগ হয়েছে", removed:"আইটেম সরানো হয়েছে", invalid_coupon:"অবৈধ কুপন", coupon_applied:"কুপন {code} প্রয়োগ হয়েছে",
+    foot1:"মূল্য GBP-এ। ছবিগুলি কেবল উদাহরণস্বরূপ।", foot2:"আপনি চাইলে শুধু লোকালিতে তথ্য রাখা হবে।"
+  },
+  ar:{
+    brand:"تاستي بيتزا وبرغر", slogan:"ساخن • طازج • سريع",
+    off_pizzas:"خصم على البيتزا", line2:"لفترة محدودة • تناول بالمطعم أو استلام أو توصيل",
+    see_menu:"عرض القائمة", order_wa:"اطلب عبر واتساب",
+    big_deals:"خصومات كبيرة", on_pizza_burgers:"على البيتزا والبرغر", desc_bf:"اختر الحجم والإضافات، أضف إلى السلة وأكمل عبر واتساب.",
+    tabs:["بيتزا","برغر","رابس","مقبلات","عروض","مشروبات"],
+    cart:"السلة", your_order:"طلبك", subtotal:"المجموع الجزئي", service_fee:"رسوم الخدمة",
+    delivery_fee:"رسوم التوصيل", small_order_fee:"رسوم الطلب الصغير", discount:"الخصم", total:"الإجمالي",
+    no_online_pay:"لا دفع إلكتروني • الدفع عند التسليم/الاستلام",
+    apply:"تطبيق", clear:"مسح", cust_details:"بيانات العميل", clear_cart:"تفريغ السلة",
+    finish_wa:"أكمل عبر واتساب", send_email:"أرسل بالبريد",
+    cust_hint:"مطلوبة للتوصيل أو الاستلام. لا يوجد دفع هنا.",
+    name:"الاسم", phone:"الهاتف (واتساب)", order_type:"نوع الطلب", delivery:"توصيل", pickup:"استلام",
+    address:"العنوان", postcode:"الرمز البريدي", calc_delivery:"احسب التوصيل", notes:"ملاحظات",
+    remember:"تذكر بياناتي على هذا الجهاز", back:"رجوع", save:"حفظ", saved_ok:"تم الحفظ! 🎉",
+    added:"تمت إضافة العنصر إلى السلة", removed:"تمت إزالة العنصر", invalid_coupon:"كوبون غير صالح", coupon_applied:"تم تطبيق الكوبون {code}",
+    foot1:"الأسعار بالجنيه الإسترليني. الصور توضيحية.", foot2:"نخزن بياناتك محليًا فقط إذا اخترت ذلك."
+  }
+};
+
+function translateUI(){
+  const t = I18N[LANG];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
+  document.querySelectorAll('.flag').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang===LANG);
+  });
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = (LANG==='ar') ? 'rtl' : 'ltr';
+  makeTabs(true);          // refaz abas traduzidas
+  renderCart();            // atualiza labels do carrinho
+}
+document.addEventListener('click', e=>{
+  if(e.target.classList.contains('flag')){
+    LANG = e.target.dataset.lang;
+    localStorage.setItem('lang', LANG);
+    translateUI();
+  }
+});
+
 /* ===================== CONFIG ===================== */
 const STORE = {
   whatsapp: "+447931217826",
   emailPedidos: "orders@tastypizza.co.uk",
   currency: "£",
   restaurantPostcode: "N8 0DU",
-  // NOVO: preço por KM (linear)
   ratePerKm: 3.49,
-  // Service fee: 5% min 0.49 max 2.00
   serviceFee: { pct: 0.05, min: 0.49, max: 2.00 },
   smallOrder: { threshold: 12.00, fee: 2.00 },
   coupons: { "BLACK10": 0.10 },
@@ -283,9 +380,36 @@ const phoneDigits = STORE.whatsapp.replace(/\D/g,'');
 document.getElementById('topWhats').href = `https://wa.me/${phoneDigits}`;
 document.getElementById('ctaWhatsTop').addEventListener('click', ()=>safeOpen(`https://wa.me/${phoneDigits}`));
 
-/* ===================== MENU (mesmo de antes — resumido aqui) ===================== */
+/* ===================== MENU (exemplo resumido) ===================== */
 const CATS=["pizzas","burgers","wraps","sides","deals","drinks"];
-const MENU={pizzas:[{id:"p-marg",name:"Margherita",desc_en:"Classic tomato & mozzarella.",desc_ar:"صلصة طماطم مع جبنة موزاريلا.",sizes:{'10"':5.99,'12"':7.99,'15"':9.99},tag:"HOT",img:"pizza-margherita.jpg"},{id:"p-pep",name:"Pepperoni",desc_en:"Double pepperoni, mozzarella.",desc_ar:"ببروني مزدوج مع موزاريلا.",sizes:{'10"':6.99,'12"':8.99,'15"':11.49},img:"pizza-pepperoni.jpg"},{id:"p-meat",name:"Meat Feast",desc_en:"Pepperoni, beef, chicken.",desc_ar:"ببروني ولحم بقري ودجاج.",sizes:{'10"':7.49,'12"':9.99,'15"':12.99},img:"pizza-meatfeast.jpg"},{id:"p-veggie",name:"Vegetarian Hot",desc_en:"Fresh peppers, onion, olives, jalapeño.",desc_ar:"فلفل طازج وبصل وزيتون وهالبينو.",sizes:{'10"':6.49,'12"':8.49,'15"':10.99},img:"pizza-veg.jpg"}],burgers:[{id:"b-ch",name:"Chicken Burger",desc_en:"Crispy chicken, lettuce, mayo.",desc_ar:"دجاج مقرمش وخس ومايونيز.",sizes:{Meal:5.99,Single:4.49},img:"burger-chicken.jpg"},{id:"b-veggie",name:"Veggie Burger",desc_en:"Grilled veggie patty.",desc_ar:"برغر نباتي مشوي.",sizes:{Meal:5.49,Single:3.99},img:"burger-veggie.jpg"}],wraps:[{id:"w-ch",name:"Chicken Wrap",desc_en:"Chicken, salad, sauce.",desc_ar:"دجاج وسلطة وصوص.",sizes:{Regular:3.99,Meal:5.99},img:"wrap-chicken.jpg"},{id:"w-veg",name:"Vegetable Wrap",desc_en:"Fresh vegetables.",desc_ar:"خضار طازجة.",sizes:{Regular:3.49,Meal:5.49},img:"wrap-veggie.jpg"}],sides:[{id:"s-fries",name:"Fries",desc_en:"Crispy fries.",desc_ar:"بطاطس مقلية مقرمشة.",sizes:{Small:1.50,Large:2.50},img:"side-fries.jpg"},{id:"s-onion",name:"Onion Rings (10)",desc_en:"Golden rings.",desc_ar:"حلقات بصل ذهبية.",sizes:{Box:2.99},img:"side-onionrings.jpg"}],deals:[{id:"d-meal1",name:"Meal 1",desc_en:'Any 10" pizza + garlic bread + drink',desc_ar:'أي بيتزا حجم 10" + خبز بالثوم + مشروب',sizes:{Deal:12.50},tag:"BF DEAL",img:"deal-meal1.jpg"},{id:"d-meal2",name:"Meal 2",desc_en:'2x 12" pizza + 1.5L drink',desc_ar:'2 بيتزا 12" + مشروب 1.5 لتر',sizes:{Deal:17.00},img:"deal-meal2.jpg"}],drinks:[{id:"dr-15coke",name:"Coke/Pepsi 1.5L",desc_en:"Cold.",desc_ar:"بارد.",sizes:{Bottle:3.00},img:"drink-15l.jpg"},{id:"dr-can",name:"Can 330ml",desc_en:"Various flavours.",desc_ar:"نكهات متعددة.",sizes:{Can:1.10},img:"drink-can.jpg"}]};
+const MENU={
+  pizzas:[
+    {id:"p-marg", name:"Margherita", desc_en:"Classic tomato & mozzarella.", desc_ar:"صلصة طماطم مع جبنة موزاريلا.", sizes:{'10"':5.99,'12"':7.99,'15"':9.99}, tag:"HOT", img:"pizza-margherita.jpg"},
+    {id:"p-pep", name:"Pepperoni", desc_en:"Double pepperoni, mozzarella.", desc_ar:"ببروني مزدوج مع موزاريلا.", sizes:{'10"':6.99,'12"':8.99,'15"':11.49}, img:"pizza-pepperoni.jpg"},
+    {id:"p-meat", name:"Meat Feast", desc_en:"Pepperoni, beef, chicken.", desc_ar:"ببروني ولحم بقري ودجاج.", sizes:{'10"':7.49,'12"':9.99,'15"':12.99}, img:"pizza-meatfeast.jpg"},
+    {id:"p-veggie", name:"Vegetarian Hot", desc_en:"Fresh peppers, onion, olives, jalapeño.", desc_ar:"فلفل طازج وبصل وزيتون وهالبينو.", sizes:{'10"':6.49,'12"':8.49,'15"':10.99}, img:"pizza-veg.jpg"}
+  ],
+  burgers:[
+    {id:"b-ch", name:"Chicken Burger", desc_en:"Crispy chicken, lettuce, mayo.", desc_ar:"دجاج مقرمش وخس ومايونيز.", sizes:{Meal:5.99, Single:4.49}, img:"burger-chicken.jpg"},
+    {id:"b-veggie", name:"Veggie Burger", desc_en:"Grilled veggie patty.", desc_ar:"برغر نباتي مشوي.", sizes:{Meal:5.49, Single:3.99}, img:"burger-veggie.jpg"}
+  ],
+  wraps:[
+    {id:"w-ch", name:"Chicken Wrap", desc_en:"Chicken, salad, sauce.", desc_ar:"دجاج وسلطة وصوص.", sizes:{Regular:3.99, Meal:5.99}, img:"wrap-chicken.jpg"},
+    {id:"w-veg", name:"Vegetable Wrap", desc_en:"Fresh vegetables.", desc_ar:"خضار طازجة.", sizes:{Regular:3.49, Meal:5.49}, img:"wrap-veggie.jpg"}
+  ],
+  sides:[
+    {id:"s-fries", name:"Fries", desc_en:"Crispy fries.", desc_ar:"بطاطس مقلية مقرمشة.", sizes:{Small:1.50, Large:2.50}, img:"side-fries.jpg"},
+    {id:"s-onion", name:"Onion Rings (10)", desc_en:"Golden rings.", desc_ar:"حلقات بصل ذهبية.", sizes:{Box:2.99}, img:"side-onionrings.jpg"}
+  ],
+  deals:[
+    {id:"d-meal1", name:"Meal 1", desc_en:'Any 10" pizza + garlic bread + drink', desc_ar:'أي بيتزا حجم 10" + خبز بالثوم + مشروب', sizes:{Deal:12.50}, tag:"BF DEAL", img:"deal-meal1.jpg"},
+    {id:"d-meal2", name:"Meal 2", desc_en:'2x 12" pizza + 1.5L drink', desc_ar:'2 بيتزا 12" + مشروب 1.5 لتر', sizes:{Deal:17.00}, img:"deal-meal2.jpg"}
+  ],
+  drinks:[
+    {id:"dr-15coke", name:"Coke/Pepsi 1.5L", desc_en:"Cold.", desc_ar:"بارد.", sizes:{Bottle:3.00}, img:"drink-15l.jpg"},
+    {id:"dr-can", name:"Can 330ml", desc_en:"Various flavours.", desc_ar:"نكهات متعددة.", sizes:{Can:1.10}, img:"drink-can.jpg"}
+  ]
+};
 
 /* ===================== HELPERS ===================== */
 function money(n){const v=Number(n)||0;return `${STORE.currency}${v.toFixed(2)}`;}
@@ -295,8 +419,72 @@ function haversineKm(lat1,lon1,lat2,lon2){const R=6371;const toRad=d=>d*Math.PI/
 
 /* ===================== RENDER ===================== */
 const elTabs=document.getElementById('tabs'), elCatalog=document.getElementById('catalog');
-function makeTabs(){elTabs.innerHTML='';["Pizzas","Burgers","Wraps","Sides","Deals","Drinks"].forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.className='pill'+(i===0?' active':'');b.textContent=t;b.dataset.cat=CATS[i];b.addEventListener('click',()=>{elTabs.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCat(b.dataset.cat);});elTabs.appendChild(b);});}
-function renderCat(catKey){elCatalog.innerHTML='';(MENU[catKey]||[]).forEach(item=>{const card=document.createElement('article');card.className='card';const bg=item.img?`style="background-image:url('./img/${item.img}'),linear-gradient(#f5f5f5,#f5f5f5)"`:'';card.innerHTML=`<div class="img" ${bg} role="img" aria-label="${item.name}"></div>${item.tag?`<span class="tag">${item.tag}</span>`:''}<div class="body"><div class="name">${item.name}</div><div class="desc">${item.desc_en}</div><div class="row-sb"><label><span>Size</span>:<select aria-label="Size">${Object.entries(item.sizes).map(([k,v])=>`<option value="${v}">${k} — ${money(v)}</option>`).join('')}</select></label><div class="qty" aria-label="Qty"><button class="minus" type="button" aria-label="Decrease quantity">−</button><span class="q">1</span><button class="plus" type="button" aria-label="Increase quantity">+</button></div></div><div class="row-sb" style="margin-top:8px"><div class="price">from ${money(Math.min(...Object.values(item.sizes)))}</div><button class="btn add" data-id="${item.id}" type="button">Add</button></div></div>`;const qty=card.querySelector('.qty');qty.addEventListener('click',e=>{const span=qty.querySelector('.q');let q=parseInt(span.textContent,10);if(e.target.classList.contains('minus'))q=Math.max(1,q-1);if(e.target.classList.contains('plus'))q=q+1;span.textContent=q;});card.querySelector('.add').addEventListener('click',()=>{const sizeSel=card.querySelector('select');const price=parseFloat(sizeSel.value);const sizeName=sizeSel.options[sizeSel.selectedIndex].text.split(' — ')[0];const q=parseInt(card.querySelector('.q').textContent,10);state.cart.push({id:item.id,name:item.name,desc:item.desc_en,size:sizeName,price,q,img:item.img||'pizza.jpg'});renderCart();openDrawer();showToast('Item added to cart');});elCatalog.appendChild(card);});}
+function makeTabs(force=false){
+  elTabs.innerHTML='';
+  const labels = I18N[LANG].tabs;
+  labels.forEach((t,i)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='pill'+(i===0?' active':'');
+    b.textContent=t;
+    b.dataset.cat=CATS[i];
+    b.addEventListener('click',()=>{
+      elTabs.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); renderCat(b.dataset.cat);
+    });
+    elTabs.appendChild(b);
+  });
+  if(force) renderCat(CATS[0]);
+}
+function renderCat(catKey){
+  elCatalog.innerHTML='';
+  (MENU[catKey]||[]).forEach(item=>{
+    const card=document.createElement('article'); card.className='card';
+    const bg=item.img?`style="background-image:url('./img/${item.img}'),linear-gradient(#f5f5f5,#f5f5f5)"`:'';
+    const desc = item[`desc_${LANG}`] || item.desc_en || '';
+    const sizeLabel = (LANG==='ar')?'الحجم':'Size';
+    const qtyLabel  = (LANG==='ar')?'الكمية':'Qty';
+    card.innerHTML=`
+      <div class="img" ${bg} role="img" aria-label="${item.name}"></div>
+      ${item.tag?`<span class="tag">${item.tag}</span>`:''}
+      <div class="body">
+        <div class="name">${item.name}</div>
+        <div class="desc">${desc}</div>
+        <div class="row-sb">
+          <label><span>${sizeLabel}</span>:
+            <select aria-label="${sizeLabel}">
+              ${Object.entries(item.sizes).map(([k,v])=>`<option value="${v}">${k} — ${money(v)}</option>`).join('')}
+            </select>
+          </label>
+          <div class="qty" aria-label="${qtyLabel}">
+            <button class="minus" type="button" aria-label="Decrease">−</button>
+            <span class="q">1</span>
+            <button class="plus" type="button" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="row-sb" style="margin-top:8px">
+          <div class="price">from ${money(Math.min(...Object.values(item.sizes)))}</div>
+          <button class="btn add" data-id="${item.id}" type="button">${I18N[LANG].apply ? (LANG==='ar'?'إضافة':'Add') : 'Add'}</button>
+        </div>
+      </div>`;
+    const qty=card.querySelector('.qty');
+    qty.addEventListener('click',e=>{
+      const span=qty.querySelector('.q'); let q=parseInt(span.textContent,10);
+      if(e.target.classList.contains('minus')) q=Math.max(1,q-1);
+      if(e.target.classList.contains('plus')) q=q+1; span.textContent=q;
+    });
+    card.querySelector('.add').addEventListener('click',()=>{
+      const sizeSel=card.querySelector('select');
+      const price=parseFloat(sizeSel.value);
+      const sizeName=sizeSel.options[sizeSel.selectedIndex].text.split(' — ')[0];
+      const q=parseInt(card.querySelector('.q').textContent,10);
+      const descNow=item[`desc_${LANG}`] || item.desc_en || '';
+      state.cart.push({id:item.id,name:item.name,desc:descNow,size:sizeName,price,q,img:item.img||'pizza.jpg'});
+      renderCart(); openDrawer(); showToast(I18N[LANG].added);
+    });
+    elCatalog.appendChild(card);
+  });
+}
 
 /* ===================== CART + FEES ===================== */
 const drawer=document.getElementById('drawer'),overlay=document.getElementById('overlay'),fab=document.getElementById('fabCart');
@@ -325,15 +513,27 @@ function computeFees(){
   const svc=computeServiceFee(subtotal);
   const small=computeSmallOrder(subtotal);
   const {fee:del,km}=computeDeliveryLinear();
-  distHint.textContent = km?`(${km.toFixed(2)} km × £${STORE.ratePerKm.toFixed(2)}/km)`:'';
+  distHint.textContent = km?` (${km.toFixed(2)} km × £${STORE.ratePerKm.toFixed(2)}/km)`:'';
   return {subtotal,svc,del,small};
 }
 
 function computeDiscount(subtotal){const code=(state.coupon||'').toUpperCase().trim();const pct=STORE.coupons[code]||0;return {code,pct,value:+(subtotal*pct)};}
 
 function renderCart(){
-  const list=document.getElementById('cartList');list.innerHTML='';
-  state.cart.forEach((it,idx)=>{const row=document.createElement('div');row.className='cart-item';row.innerHTML=`<img alt="${it.name}" src="./img/${it.img}" loading="lazy" decoding="async"><div><div style="font-weight:800">${it.name}</div><div class="meta">${it.size} • Qty: ${it.q} • ${money(it.price)} ea</div></div><button class="btn" style="padding:8px" type="button" aria-label="Remove">✕</button>`;row.querySelector('button').addEventListener('click',()=>{state.cart.splice(idx,1);renderCart();showToast('Item removed');});list.appendChild(row);});
+  const list=document.getElementById('cartList'); list.innerHTML='';
+  state.cart.forEach((it,idx)=>{
+    const row=document.createElement('div'); row.className='cart-item';
+    const qtyLabel = (LANG==='ar')?'الكمية':'Qty';
+    row.innerHTML=`
+      <img alt="${it.name}" src="./img/${it.img}" loading="lazy" decoding="async">
+      <div>
+        <div style="font-weight:800">${it.name}</div>
+        <div class="meta">${it.size} • ${qtyLabel}: ${it.q} • ${money(it.price)} ea</div>
+      </div>
+      <button class="btn" style="padding:8px" type="button" aria-label="Remove">✕</button>`;
+    row.querySelector('button').addEventListener('click',()=>{ state.cart.splice(idx,1); renderCart(); showToast(I18N[LANG].removed); });
+    list.appendChild(row);
+  });
   localStorage.setItem('cart',JSON.stringify(state.cart));
   fabCount.textContent=state.cart.reduce((a,b)=>a+b.q,0);
 
@@ -353,10 +553,16 @@ function renderCart(){
 }
 btnClear.addEventListener('click',()=>{state.cart=[];localStorage.removeItem('cart');renderCart();});
 
-document.getElementById('applyCupom').addEventListener('click',()=>{const code=elCupom.value.trim().toUpperCase();if(!code){state.coupon='';localStorage.removeItem('coupon');renderCart();return;}if(!(code in STORE.coupons)){showToast('Invalid coupon');return;}state.coupon=code;localStorage.setItem('coupon',code);renderCart();showToast(`Coupon ${code} applied`);});
+document.getElementById('applyCupom').addEventListener('click',()=>{
+  const code=elCupom.value.trim().toUpperCase();
+  if(!code){state.coupon='';localStorage.removeItem('coupon');renderCart();return;}
+  if(!(code in STORE.coupons)){showToast(I18N[LANG].invalid_coupon);return;}
+  state.coupon=code; localStorage.setItem('coupon',code); renderCart();
+  showToast(I18N[LANG].coupon_applied.replace('{code}', code));
+});
 document.getElementById('clearCupom').addEventListener('click',()=>{state.coupon='';localStorage.removeItem('coupon');elCupom.value='';renderCart();});
 
-/* ===== Texto do pedido (com quebra de linha garantida) ===== */
+/* ===== Texto do pedido ===== */
 function montarTextoPedido(){
   const itens=state.cart.map(it=>`• ${it.name} (${it.size}) x${it.q} — ${money(it.price)} ea`).join('\n');
   const {subtotal,svc,del,small}=computeFees();const discObj=computeDiscount(subtotal);const discount=Math.min(discObj.value,subtotal);
@@ -370,7 +576,7 @@ function montarTextoPedido(){
 }
 function waUrl(text){const max=1900;const msg=text.length>max?(text.slice(0,max-1)+'…'):text;return `https://wa.me/${phoneDigits}?text=${encodeURIComponent(msg)}`;}
 btnWhats.addEventListener('click',()=>safeOpen(waUrl(montarTextoPedido())));
-btnEmail.addEventListener('click',()=>{const assunto=`Order — Tasty Pizza`;const corpo=montarTextoPedido();const url=`mailto:${STORE.emailPedidos}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;window.location.href=url;});
+btnEmail.addEventListener('click',()=>{const assunto=`Order — Tasty Pizza`;const corpo=montarTextoPedido();const url=`mailto:${STORE.emailPedidos}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;window.location.href = url;});
 
 /* ===================== MODAL CADASTRO + POSTCODES.IO ===================== */
 const modal=document.getElementById('modal'),btnFechar=document.getElementById('fecharModal'),okMsg=document.getElementById('okMsg');
@@ -385,10 +591,9 @@ async function lookupPostcode(pc){
     const r=await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(clean)}`);
     const j=await r.json();
     if(j.status!==200) return null;
-    return j.result; // {postcode, latitude, longitude, ...}
+    return j.result;
   }catch(e){return null;}
 }
-
 async function geocodeAndCalc() {
   const cepRaw=document.getElementById('c_cep').value.trim();
   const info=await lookupPostcode(cepRaw);
@@ -399,7 +604,6 @@ async function geocodeAndCalc() {
   renderCart();
   if(state.lastKm!=null) showToast(`Distância: ${state.lastKm.toFixed(2)} km • Delivery £${(state.lastKm*STORE.ratePerKm).toFixed(2)}`);
 }
-
 document.getElementById('btnCalc').addEventListener('click', geocodeAndCalc);
 
 document.getElementById('custForm').addEventListener('submit',async (e)=>{
@@ -436,6 +640,7 @@ document.getElementById('theme-dark').addEventListener('click',()=>{document.doc
 /* ===================== INIT ===================== */
 document.getElementById('y').textContent=new Date().getFullYear();
 (async function(){
+  translateUI();
   const r=await lookupPostcode(STORE.restaurantPostcode);
   if(r){ state.rest.lat=r.latitude; state.rest.lon=r.longitude; }
   makeTabs(); renderCat(CATS[0]); renderCart(); opStatus();
